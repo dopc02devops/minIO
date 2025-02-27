@@ -1,0 +1,17 @@
+{
+  "Statement": [
+	{
+	  "Action": [
+		"s3:ListBucket",
+		"s3:ListBucketMultipartUploads",
+		"s3:GetBucketLocation"
+	  ],
+	  "Effect": "Allow",
+	  "Principal": {
+		"AWS": ["arn:aws:iam::minio:user/Hannah"]
+	  },
+	  "Resource": ["arn:aws:s3:::learn-bucket-policies"]
+	}
+  ],
+  "Version": "2012-10-17"
+}

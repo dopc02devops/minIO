@@ -42,3 +42,10 @@ MinIO is a high-performance, S3-compatible object storage solution designed for 
 - mc mb minio/my-new-bucket-today
 - mc ls minio
 - mc rb minio/my-new-bucket-today
+
+## Create User ##
+- mc admin user list minio
+- mc admin user add minio minio-user password
+- mc alias set minio-user http://localhost:9000 minio-user password
+- mc admin policy attach minio --user minio-user consoleAdmin
+
