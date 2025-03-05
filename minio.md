@@ -1,14 +1,7 @@
 1. S3 Compatibility
 Fully compatible with the Amazon S3 API
 Supports S3 features like bucket policies, access control lists (ACLs), and lifecycle management
-2. High Performance
-Optimized for high-speed data storage and retrieval
-Enables real-time data analytics and AI/ML workloads
-Performance scales linearly with hardware
-3. Scalability
-Supports multi-tenant and multi-cloud environments
-Easily scales from terabytes to exabytes
-Erasure coding ensures efficient storage utilization
+
 4. Data Protection & Security
 End-to-end encryption (AES-256, TLS) for data in transit and at rest
 IAM (Identity and Access Management) with fine-grained permissions

@@ -1,0 +1,113 @@
+clusterDomain: minio.local
+
+image:
+  repository: quay.io/minio/minio
+  tag: RELEASE.2025-02-28T09-55-16Z
+  pullPolicy: IfNotPresent
+
+mcImage:
+  repository: quay.io/minio/mc
+  tag: RELEASE.2024-11-21T17-21-54Z
+  pullPolicy: IfNotPresent
+
+## minio mode, i.e. standalone or distributed
+mode: standalone ## other supported values are "standalone"
+
+minioAPIPort: "9000"
+minioConsolePort: "9001"
+
+## Update strategy for Deployments
+deploymentUpdate:
+  type: RollingUpdate
+  maxUnavailable: 0
+  maxSurge: 100%
+
+## Update strategy for StatefulSets
+statefulSetUpdate:
+  updateStrategy: RollingUpdate
+
+existingSecret: "minio-secret"  ## Reference the existing secret for credentials
+
+## Directory on the MinIO pod
+certsPath: "/etc/minio/certs/"
+configPathmc: "/etc/minio/mc/"
+
+## Path where PV would be mounted on the MinIO Pod
+mountPath: "/export"
+
+bucketRoot: ""
+
+# Number of drives attached to a node
+drivesPerNode: 1
+# Number of MinIO containers running
+replicas: 2
+# Number of expanded MinIO clusters
+pools: 1
+
+## TLS Settings for MinIO
+tls:
+  enabled: true
+  certSecret: "minio-certs"  ## Reference the secret containing the TLS certificates
+  publicCrt: tls.crt
+  privateKey: tls.key
+
+## Trusted Certificates Settings for MinIO. 
+trustedCertsSecret: "minio-certs"  ## Reference the trusted certs secret
+
+## Enable persistence using Persistent Volume Claims
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 20Gi
+
+service:
+  type: ClusterIP
+  port: "9000"
+  nodePort: 32000
+
+consoleService:
+  type: ClusterIP
+  port: "9001"
+  nodePort: 32001
+
+securityContext:
+  enabled: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: "OnRootMismatch"
+
+containerSecurityContext:
+  readOnlyRootFilesystem: false
+
+## Configure resource requests and limits
+resources:
+  requests:
+    memory: 4Gi
+    cpu: "2"
+
+serviceAccount:
+  create: true
+  name: "minio-sa"
+
+environment:
+  MINIO_SERVER_URL: "http://localhost:9000"
+  MINIO_BROWSER_REDIRECT_URL: "http://localhost:9001"
+
+
+# Enable KMS Auto Encryption
+KMS:
+  # Enable KMS
+  autoEncryption: "on"
+
+  # Configure Vault KMS
+  vault:
+    # Vault Address (set to your Vault URL)
+    address: "http://localhost:8200"
+    # The Vault authentication token to use
+    token: "hvs.b8QDE5XwdWg5LQpVgLGm6mTM"
+    # The Vault secrets engine for KMS (using transit here)
+    engine: "transit"
+    # The Vault KMS key to use for encryption
+    key: "minio-key-kms"  # The Vault key you created in the Transit engine
+

@@ -1,0 +1,17 @@
+{
+    "Rules": [
+      {
+        "ID": "expire-old-objects",
+        "Status": "Enabled",
+        "Expiration": {"Days": 1},
+        "Filter": {"Prefix": ""}
+      },
+      {
+        "ID": "delete-noncurrent",
+        "Status": "Enabled",
+        "NoncurrentVersionExpiration": {"NoncurrentDays": 1},
+        "Filter": {"Prefix": ""}
+      }
+    ]
+  }
+  
