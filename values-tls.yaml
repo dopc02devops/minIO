@@ -90,11 +90,6 @@ serviceAccount:
   create: true
   name: "minio-sa"
 
-environment:
-  MINIO_SERVER_URL: "http://localhost:9000"
-  MINIO_BROWSER_REDIRECT_URL: "http://localhost:9001"
-
-
 # Enable KMS Auto Encryption
 KMS:
   # Enable KMS
@@ -105,7 +100,7 @@ KMS:
     # Vault Address (set to your Vault URL)
     address: "http://localhost:8200"
     # The Vault authentication token to use
-    token: "hvs.b8QDE5XwdWg5LQpVgLGm6mTM"
+    token: "hvs.hTb5IN3hTW8waZ4q1jhzOEUj"
     # The Vault secrets engine for KMS (using transit here)
     engine: "transit"
     # The Vault KMS key to use for encryption
